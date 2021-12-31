@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MsgDetail</class>
+ <widget class="QWidget" name="MsgDetail">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="autoScrollMargin">
+      <number>0</number>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <row>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>发送者</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>消息内容</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>最晚完成时间</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>发送方发送时间</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>服务器接收时间</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>服务器响应时间</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>接收方接收时间</string>
+      </property>
+     </row>
+     <column>
+      <property name="text">
+       <string>内容</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
