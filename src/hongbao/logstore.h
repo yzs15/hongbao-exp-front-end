@@ -10,13 +10,16 @@ public:
     uint64_t mid;
     time_t timestamp;
     QString event;
+    QString me;
 };
 
 
 class LogStore
 {
 public:
-    LogStore();
+    LogStore(QString me = "");
+
+    QString me;
 
     void add(int curEnv, uint64_t mid, time_t timestamp, QString event);
 

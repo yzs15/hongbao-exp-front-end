@@ -9,6 +9,7 @@
 #ifndef UI_MAINWINDOW_H
 #define UI_MAINWINDOW_H
 
+#include <QtCore/QDate>
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
@@ -39,12 +40,8 @@ public:
     QWidget *msgFieldWidget;
     QVBoxLayout *verticalLayout_5;
     QLabel *label;
-    QScrollArea *netSummaryArea;
+    QScrollArea *summaryArea;
     QWidget *scrollAreaWidgetContents;
-    QVBoxLayout *verticalLayout_6;
-    QLabel *label_3;
-    QScrollArea *spbSummaryArea;
-    QWidget *scrollAreaWidgetContents_2;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout_3;
@@ -98,7 +95,7 @@ public:
         msgFieldWidget = new QWidget();
         msgFieldWidget->setObjectName(QStringLiteral("msgFieldWidget"));
         msgFieldWidget->setEnabled(true);
-        msgFieldWidget->setGeometry(QRect(0, 0, 559, 760));
+        msgFieldWidget->setGeometry(QRect(0, 0, 562, 760));
         msgFieldArea->setWidget(msgFieldWidget);
 
         verticalLayout_7->addWidget(msgFieldArea);
@@ -116,48 +113,22 @@ public:
 
         verticalLayout_5->addWidget(label);
 
-        netSummaryArea = new QScrollArea(centralWidget);
-        netSummaryArea->setObjectName(QStringLiteral("netSummaryArea"));
-        netSummaryArea->setFrameShape(QFrame::NoFrame);
-        netSummaryArea->setWidgetResizable(true);
+        summaryArea = new QScrollArea(centralWidget);
+        summaryArea->setObjectName(QStringLiteral("summaryArea"));
+        summaryArea->setFrameShape(QFrame::NoFrame);
+        summaryArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 421, 762));
-        netSummaryArea->setWidget(scrollAreaWidgetContents);
-        label->raise();
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 846, 762));
+        summaryArea->setWidget(scrollAreaWidgetContents);
 
-        verticalLayout_5->addWidget(netSummaryArea);
+        verticalLayout_5->addWidget(summaryArea);
 
 
         horizontalLayout->addLayout(verticalLayout_5);
 
-        verticalLayout_6 = new QVBoxLayout();
-        verticalLayout_6->setSpacing(6);
-        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
-        verticalLayout_6->setContentsMargins(-1, -1, 0, -1);
-        label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_6->addWidget(label_3);
-
-        spbSummaryArea = new QScrollArea(centralWidget);
-        spbSummaryArea->setObjectName(QStringLiteral("spbSummaryArea"));
-        spbSummaryArea->setFrameShape(QFrame::NoFrame);
-        spbSummaryArea->setWidgetResizable(true);
-        scrollAreaWidgetContents_2 = new QWidget();
-        scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 420, 762));
-        spbSummaryArea->setWidget(scrollAreaWidgetContents_2);
-
-        verticalLayout_6->addWidget(spbSummaryArea);
-
-
-        horizontalLayout->addLayout(verticalLayout_6);
-
         horizontalLayout->setStretch(0, 40);
-        horizontalLayout->setStretch(1, 30);
-        horizontalLayout->setStretch(2, 30);
+        horizontalLayout->setStretch(1, 60);
 
         verticalLayout->addLayout(horizontalLayout);
 
@@ -173,9 +144,10 @@ public:
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         dateIn = new QDateEdit(centralWidget);
         dateIn->setObjectName(QStringLiteral("dateIn"));
-        dateIn->setDateTime(QDateTime(QDate(2021, 12, 13), QTime(0, 0, 0)));
+        dateIn->setDateTime(QDateTime(QDate(2022, 1, 5), QTime(0, 0, 0)));
         dateIn->setCurrentSection(QDateTimeEdit::YearSection);
         dateIn->setTimeSpec(Qt::UTC);
+        dateIn->setDate(QDate(2022, 1, 5));
 
         horizontalLayout_3->addWidget(dateIn);
 
@@ -263,8 +235,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\347\272\242\345\214\205\345\272\224\347\224\250", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "\346\266\210\346\201\257\346\241\206", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindow", "\344\272\222\350\201\224\347\275\221\347\211\210", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "\344\277\241\346\201\257\351\253\230\351\223\201\347\211\210", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "\347\273\237\350\256\241\344\277\241\346\201\257", Q_NULLPTR));
         dateIn->setDisplayFormat(QApplication::translate("MainWindow", "yyyy-MM-dd", Q_NULLPTR));
         countDownLabel->setText(QApplication::translate("MainWindow", "\350\257\267\347\202\271\345\207\273\345\274\200\345\247\213", Q_NULLPTR));
         netStartBtn->setText(QApplication::translate("MainWindow", "\344\272\222\350\201\224\347\275\221\347\211\210 \345\274\200\345\247\213", Q_NULLPTR));

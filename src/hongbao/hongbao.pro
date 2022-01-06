@@ -34,7 +34,8 @@ SOURCES += \
     alarm.cpp \
     msgsummary.cpp \
     public.cpp \
-    logstore.cpp
+    logstore.cpp \
+    countdown.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
     commutils.h \
     alarm.h \
     msgsummary.h \
-    logstore.h
+    logstore.h \
+    countdown.h
 
 FORMS += \
         mainwindow.ui \

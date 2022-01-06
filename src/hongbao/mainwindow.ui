@@ -28,7 +28,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" stretch="90,10">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="40,30,30">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="40,60">
       <property name="rightMargin">
        <number>0</number>
       </property>
@@ -72,7 +72,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>559</width>
+             <width>562</width>
              <height>760</height>
             </rect>
            </property>
@@ -92,7 +92,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>互联网版</string>
+           <string>统计信息</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -100,7 +100,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QScrollArea" name="netSummaryArea">
+         <widget class="QScrollArea" name="summaryArea">
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>
@@ -112,45 +112,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>421</width>
-             <height>762</height>
-            </rect>
-           </property>
-           <zorder>label</zorder>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>信息高铁版</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QScrollArea" name="spbSummaryArea">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_2">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>420</width>
+             <width>846</width>
              <height>762</height>
             </rect>
            </property>
@@ -177,9 +139,9 @@
               <hour>0</hour>
               <minute>0</minute>
               <second>0</second>
-              <year>2021</year>
-              <month>12</month>
-              <day>13</day>
+              <year>2022</year>
+              <month>1</month>
+              <day>5</day>
              </datetime>
             </property>
             <property name="currentSection">
@@ -190,6 +152,13 @@
             </property>
             <property name="timeSpec">
              <enum>Qt::UTC</enum>
+            </property>
+            <property name="date">
+             <date>
+              <year>2022</year>
+              <month>1</month>
+              <day>5</day>
+             </date>
             </property>
            </widget>
           </item>

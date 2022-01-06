@@ -24,11 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->msgField, &MsgField::msgSelected, this, &MainWindow::onMsgSelected);
     ui->msgFieldArea->setWidget(this->msgField);
 
-    this->netMsgSumArea = new MsgSummary();
-    ui->netSummaryArea->setWidget(this->netMsgSumArea);
-
-    this->spbMsgSumArea = new MsgSummary();
-    ui->spbSummaryArea->setWidget(this->spbMsgSumArea);
+    this->msgSumArea = new MsgSummary();
+    this->msgSumArea->tabWidget()->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //this->msgSumArea->tabWidget()->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
+    //this->msgSumArea->tabWidget()->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
+    ui->summaryArea->setWidget(this->msgSumArea);
 
     this->socket = Q_NULLPTR;
 }
@@ -133,8 +133,11 @@ void MainWindow::start() {
     obj->id = MID(1);
     obj->content = "信息高铁开通了！";
 
-    Alarm *thread = new Alarm(this, timestamp, obj);
-    thread->start();
+    Alarm *alarm = new Alarm(this, timestamp, obj);
+    alarm->start();
+
+    Countdown *countdown = new Countdown(this, timestamp, ui->countDownLabel);
+    countdown->start();
 }
 
 void MainWindow::onThingHideChanged() {
@@ -149,7 +152,7 @@ void MainWindow::onMsgSelected(MsgDetailObj* msg) {
 
     MsgSendObj obj;
     obj.id = msg->id;
-    obj.type = DETAIL_MSG;
+    obj.type = "DETAIL_MSG";
     // sendMsg(this->socket, &obj);
 }
 

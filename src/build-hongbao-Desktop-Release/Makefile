@@ -61,13 +61,15 @@ SOURCES       = ../hongbao/main.cpp \
 		../hongbao/alarm.cpp \
 		../hongbao/msgsummary.cpp \
 		../hongbao/public.cpp \
-		../hongbao/logstore.cpp moc_mainwindow.cpp \
+		../hongbao/logstore.cpp \
+		../hongbao/countdown.cpp moc_mainwindow.cpp \
 		moc_msgfield.cpp \
 		moc_msgbox.cpp \
 		moc_userform.cpp \
 		moc_msgdetail.cpp \
 		moc_alarm.cpp \
-		moc_msgsummary.cpp
+		moc_msgsummary.cpp \
+		moc_countdown.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		msgfield.o \
@@ -80,13 +82,15 @@ OBJECTS       = main.o \
 		msgsummary.o \
 		public.o \
 		logstore.o \
+		countdown.o \
 		moc_mainwindow.o \
 		moc_msgfield.o \
 		moc_msgbox.o \
 		moc_userform.o \
 		moc_msgdetail.o \
 		moc_alarm.o \
-		moc_msgsummary.o
+		moc_msgsummary.o \
+		moc_countdown.o
 DIST          = /usr/local/mkspecs/features/spec_pre.prf \
 		/usr/local/mkspecs/common/unix.conf \
 		/usr/local/mkspecs/common/linux.conf \
@@ -269,7 +273,8 @@ DIST          = /usr/local/mkspecs/features/spec_pre.prf \
 		../hongbao/commutils.h \
 		../hongbao/alarm.h \
 		../hongbao/msgsummary.h \
-		../hongbao/logstore.h ../hongbao/main.cpp \
+		../hongbao/logstore.h \
+		../hongbao/countdown.h ../hongbao/main.cpp \
 		../hongbao/mainwindow.cpp \
 		../hongbao/msgfield.cpp \
 		../hongbao/msgbox.cpp \
@@ -280,7 +285,8 @@ DIST          = /usr/local/mkspecs/features/spec_pre.prf \
 		../hongbao/alarm.cpp \
 		../hongbao/msgsummary.cpp \
 		../hongbao/public.cpp \
-		../hongbao/logstore.cpp
+		../hongbao/logstore.cpp \
+		../hongbao/countdown.cpp
 QMAKE_TARGET  = hongbao
 DESTDIR       = 
 TARGET        = hongbao
@@ -664,8 +670,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../hongbao/mainwindow.h ../hongbao/msgfield.h ../hongbao/msgbox.h ../hongbao/userform.h ../hongbao/msgdetail.h ../hongbao/public.h ../hongbao/apiutils.h ../hongbao/commutils.h ../hongbao/alarm.h ../hongbao/msgsummary.h ../hongbao/logstore.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../hongbao/main.cpp ../hongbao/mainwindow.cpp ../hongbao/msgfield.cpp ../hongbao/msgbox.cpp ../hongbao/userform.cpp ../hongbao/msgdetail.cpp ../hongbao/apiutils.cpp ../hongbao/commutils.cpp ../hongbao/alarm.cpp ../hongbao/msgsummary.cpp ../hongbao/public.cpp ../hongbao/logstore.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../hongbao/mainwindow.h ../hongbao/msgfield.h ../hongbao/msgbox.h ../hongbao/userform.h ../hongbao/msgdetail.h ../hongbao/public.h ../hongbao/apiutils.h ../hongbao/commutils.h ../hongbao/alarm.h ../hongbao/msgsummary.h ../hongbao/logstore.h ../hongbao/countdown.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../hongbao/main.cpp ../hongbao/mainwindow.cpp ../hongbao/msgfield.cpp ../hongbao/msgbox.cpp ../hongbao/userform.cpp ../hongbao/msgdetail.cpp ../hongbao/apiutils.cpp ../hongbao/commutils.cpp ../hongbao/alarm.cpp ../hongbao/msgsummary.cpp ../hongbao/public.cpp ../hongbao/logstore.cpp ../hongbao/countdown.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../hongbao/mainwindow.ui ../hongbao/msgbox.ui ../hongbao/msgdetail.ui ../hongbao/msgsummary.ui $(DISTDIR)/
 
 
@@ -698,9 +704,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/local/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/local/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_msgfield.cpp moc_msgbox.cpp moc_userform.cpp moc_msgdetail.cpp moc_alarm.cpp moc_msgsummary.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_msgfield.cpp moc_msgbox.cpp moc_userform.cpp moc_msgdetail.cpp moc_alarm.cpp moc_msgsummary.cpp moc_countdown.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_msgfield.cpp moc_msgbox.cpp moc_userform.cpp moc_msgdetail.cpp moc_alarm.cpp moc_msgsummary.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_msgfield.cpp moc_msgbox.cpp moc_userform.cpp moc_msgdetail.cpp moc_alarm.cpp moc_msgsummary.cpp moc_countdown.cpp
 moc_mainwindow.cpp: ../hongbao/msgfield.h \
 		../hongbao/msgbox.h \
 		../hongbao/public.h \
@@ -711,6 +717,7 @@ moc_mainwindow.cpp: ../hongbao/msgfield.h \
 		../hongbao/apiutils.h \
 		../hongbao/alarm.h \
 		../hongbao/msgsummary.h \
+		../hongbao/countdown.h \
 		../hongbao/mainwindow.h \
 		moc_predefs.h \
 		/usr/local/bin/moc
@@ -758,6 +765,14 @@ moc_msgsummary.cpp: ../hongbao/msgsummary.h \
 		/usr/local/bin/moc
 	/usr/local/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/mkspecs/linux-g++ -I/home/jian/hongbao/qt/src/hongbao -I/usr/local/include/QtWidgets -I/usr/local/include/QtGui -I/usr/local/include/QtWebSockets -I/usr/local/include/QtNetwork -I/usr/local/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../hongbao/msgsummary.h -o moc_msgsummary.cpp
 
+moc_countdown.cpp: ../hongbao/commutils.h \
+		../hongbao/public.h \
+		../hongbao/logstore.h \
+		../hongbao/countdown.h \
+		moc_predefs.h \
+		/usr/local/bin/moc
+	/usr/local/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/mkspecs/linux-g++ -I/home/jian/hongbao/qt/src/hongbao -I/usr/local/include/QtWidgets -I/usr/local/include/QtGui -I/usr/local/include/QtWebSockets -I/usr/local/include/QtNetwork -I/usr/local/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../hongbao/countdown.h -o moc_countdown.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all: ui_mainwindow.h ui_msgbox.h ui_msgdetail.h ui_msgsummary.h
@@ -799,7 +814,8 @@ main.o: ../hongbao/main.cpp ../hongbao/mainwindow.h \
 		../hongbao/commutils.h \
 		../hongbao/apiutils.h \
 		../hongbao/alarm.h \
-		../hongbao/msgsummary.h
+		../hongbao/msgsummary.h \
+		../hongbao/countdown.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../hongbao/main.cpp
 
 mainwindow.o: ../hongbao/mainwindow.cpp ../hongbao/mainwindow.h \
@@ -813,6 +829,7 @@ mainwindow.o: ../hongbao/mainwindow.cpp ../hongbao/mainwindow.h \
 		../hongbao/apiutils.h \
 		../hongbao/alarm.h \
 		../hongbao/msgsummary.h \
+		../hongbao/countdown.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../hongbao/mainwindow.cpp
 
@@ -864,9 +881,14 @@ public.o: ../hongbao/public.cpp ../hongbao/public.h \
 		../hongbao/logstore.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o public.o ../hongbao/public.cpp
 
-logstore.o: ../hongbao/logstore.cpp ../hongbao/logstore.h \
-		../hongbao/public.h
+logstore.o: ../hongbao/logstore.cpp ../hongbao/logstore.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o logstore.o ../hongbao/logstore.cpp
+
+countdown.o: ../hongbao/countdown.cpp ../hongbao/countdown.h \
+		../hongbao/commutils.h \
+		../hongbao/public.h \
+		../hongbao/logstore.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o countdown.o ../hongbao/countdown.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -888,6 +910,9 @@ moc_alarm.o: moc_alarm.cpp
 
 moc_msgsummary.o: moc_msgsummary.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_msgsummary.o moc_msgsummary.cpp
+
+moc_countdown.o: moc_countdown.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_countdown.o moc_countdown.cpp
 
 ####### Install
 

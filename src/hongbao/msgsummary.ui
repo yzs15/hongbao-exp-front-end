@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>464</width>
+    <width>760</width>
     <height>652</height>
    </rect>
   </property>
@@ -39,22 +39,77 @@
      </attribute>
      <row>
       <property name="text">
-       <string>Total Send</string>
+       <string>时段 T(秒)</string>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>Total Receive</string>
+       <string>任务数 N(个)</string>
       </property>
      </row>
      <row>
       <property name="text">
-       <string/>
+       <string>吞吐率 λ(平均每秒完成任务数，任务/秒)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>并发度 L(平均每个时刻活跃任务数，个)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>延迟 W(平均每个任务延迟，秒)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>保质任务数NG(个)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>任务级良率 Y(NG /N)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>通量 G(每秒完成的保质任务数，任务/秒)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>总运算数 O(N 个任务的总计运算数，Gop, giga operations)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>保质运算数 OG(NG个任务的运算数，Gop, giga operations)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>运算级良率 YG(OG /O)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>裸速度 S(每秒完成的运算数，Gops, giga operations per sec)</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>速度 SG(每秒完成的保质运算数，Gops, giga operations per sec)</string>
       </property>
      </row>
      <column>
       <property name="text">
-       <string>Content</string>
+       <string>Internet</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Info Superbahn</string>
       </property>
      </column>
     </widget>

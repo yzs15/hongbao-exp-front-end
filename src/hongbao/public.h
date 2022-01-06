@@ -1,23 +1,16 @@
 #ifndef PUBLIC_H
 #define PUBLIC_H
 
-#define ENV_NAME "信息高速公路"
+#define ENV_NAME "Hongbao"
 
 #define INTERNET 0
 #define SUPERBAHN 1
 
-#define SENDER 1
+#define SENDER 0
 #define MID(id) (((uint64_t)(SENDER) << 32) | id)
-
-#define JOIN_MSG "join"
-#define INSTANT_MSG "now"
-#define DETAIL_MSG "detail"
-#define TASK_MSG "task"
 
 #define SLEEP_THRESHOLD_NS 120000
 #define SLEEP_DURATION_NS 100000
-
-#define MSG_ID_LEN 8
 
 #include <QString>
 #include "logstore.h"
@@ -33,7 +26,7 @@ class MsgObj {
 public:
     uint64_t id = 0;
     uint32_t sender = SENDER;
-    bool good = true;
+    uint8_t good = 1;
     QString content = "";
 };
 

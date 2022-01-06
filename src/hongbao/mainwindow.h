@@ -17,6 +17,7 @@
 #include "alarm.h"
 #include "msgsummary.h"
 #include "commutils.h"
+#include "countdown.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,8 +37,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     MsgField *msgField;
-    MsgSummary* netMsgSumArea;
-    MsgSummary* spbMsgSumArea;
+    MsgSummary* msgSumArea;
 
     QWebSocket *socket;
 
