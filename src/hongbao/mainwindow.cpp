@@ -80,12 +80,20 @@ void MainWindow::onTextReceived(QString msgRaw){
 
 void MainWindow::handleMessage(QJsonObject &json, time_t receivedTime) {
     MsgObj *obj = new MsgObj();
-    obj->id = json["ID"].toVariant().toLongLong();
+    obj->id = json.value("ID").toDouble();
     obj->sender = json["Sender"].toVariant().toLongLong();
     obj->good = json["Good"].toBool();
     obj->content = json["Content"].toString();
 
     this->msgField->addMsg(obj);
+
+    MsgObj callback;
+    callback.id = obj->id;
+    callback.sender = 0;
+    callback.good = 3;
+    callback.content = "";
+    callback.sendTime = receivedTime;
+    zmqSend(ZMQ_SERVER[curEnv], &callback);
 
     logStore.add(curEnv, obj->id, receivedTime, "ReceiverReceived");
 }

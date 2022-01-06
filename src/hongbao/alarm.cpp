@@ -14,10 +14,12 @@ Alarm::~Alarm() {
 void Alarm::run() {
     zsock_t *socket = zsock_new_push(ZMQ_SERVER[curEnv]);
     zmsg_t *msg = zmsg_new();
+
     QJsonObject json = makeMsgJson(this->msgObj);
 
     ns_sleep_until(this->reqSendTime, SLEEP_THRESHOLD_NS);
 
+    json["SendTime"] = qlonglong(get_current_ns_timestamp());
     QJsonDocument doc(json);
     QString payload = doc.toJson(QJsonDocument::Compact);
 
@@ -31,6 +33,7 @@ void Alarm::run() {
 
     zmsg_destroy(&msg);
     zsock_destroy(&socket);
+
     qDebug() << "zmq send a message: " << payload << " at " << sendTime;
     logStore.add(curEnv, this->msgObj->id, sendTime, "SenderSended");
 }

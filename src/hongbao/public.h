@@ -28,6 +28,7 @@ public:
     uint32_t sender = SENDER;
     uint8_t good = 1;
     QString content = "";
+    uint64_t sendTime = 0;
 };
 
 class MsgDetailObj {
