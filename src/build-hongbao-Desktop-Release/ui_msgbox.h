@@ -16,6 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -24,6 +25,7 @@ class Ui_MsgBox
 {
 public:
     QHBoxLayout *horizontalLayout_2;
+    QRadioButton *radioButton;
     QLabel *authorLabel;
     QLabel *msgLabel;
 
@@ -40,6 +42,11 @@ public:
         MsgBox->setMinimumSize(QSize(100, 32));
         horizontalLayout_2 = new QHBoxLayout(MsgBox);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        radioButton = new QRadioButton(MsgBox);
+        radioButton->setObjectName(QStringLiteral("radioButton"));
+
+        horizontalLayout_2->addWidget(radioButton);
+
         authorLabel = new QLabel(MsgBox);
         authorLabel->setObjectName(QStringLiteral("authorLabel"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Minimum);
@@ -66,6 +73,9 @@ public:
 
         horizontalLayout_2->addWidget(msgLabel);
 
+        horizontalLayout_2->setStretch(0, 5);
+        horizontalLayout_2->setStretch(1, 20);
+        horizontalLayout_2->setStretch(2, 75);
 
         retranslateUi(MsgBox);
 
@@ -75,6 +85,7 @@ public:
     void retranslateUi(QWidget *MsgBox)
     {
         MsgBox->setWindowTitle(QApplication::translate("MsgBox", "Form", Q_NULLPTR));
+        radioButton->setText(QString());
         authorLabel->setText(QApplication::translate("MsgBox", "TextLabel", Q_NULLPTR));
         msgLabel->setText(QApplication::translate("MsgBox", "TextLabel", Q_NULLPTR));
     } // retranslateUi

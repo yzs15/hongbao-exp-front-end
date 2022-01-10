@@ -14,11 +14,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpinBox>
@@ -33,6 +35,8 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *nameLabel;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_7;
     QLabel *label_2;
@@ -51,6 +55,10 @@ public:
     QSpinBox *usIn;
     QVBoxLayout *verticalLayout_4;
     QLabel *countDownLabel;
+    QHBoxLayout *horizontalLayout_5;
+    QComboBox *receiverSlc;
+    QPlainTextEdit *msgIn;
+    QPushButton *subBtn;
     QHBoxLayout *horizontalLayout_4;
     QPushButton *netStartBtn;
     QPushButton *spbStartBtn;
@@ -73,6 +81,18 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        horizontalLayout_6->setContentsMargins(-1, -1, -1, 0);
+        nameLabel = new QLabel(centralWidget);
+        nameLabel->setObjectName(QStringLiteral("nameLabel"));
+
+        horizontalLayout_6->addWidget(nameLabel);
+
+
+        verticalLayout->addLayout(horizontalLayout_6);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -95,7 +115,7 @@ public:
         msgFieldWidget = new QWidget();
         msgFieldWidget->setObjectName(QStringLiteral("msgFieldWidget"));
         msgFieldWidget->setEnabled(true);
-        msgFieldWidget->setGeometry(QRect(0, 0, 562, 760));
+        msgFieldWidget->setGeometry(QRect(0, 0, 562, 687));
         msgFieldArea->setWidget(msgFieldWidget);
 
         verticalLayout_7->addWidget(msgFieldArea);
@@ -119,7 +139,7 @@ public:
         summaryArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 846, 762));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 846, 689));
         summaryArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_5->addWidget(summaryArea);
@@ -202,6 +222,28 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_2);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        receiverSlc = new QComboBox(centralWidget);
+        receiverSlc->setObjectName(QStringLiteral("receiverSlc"));
+
+        horizontalLayout_5->addWidget(receiverSlc);
+
+        msgIn = new QPlainTextEdit(centralWidget);
+        msgIn->setObjectName(QStringLiteral("msgIn"));
+
+        horizontalLayout_5->addWidget(msgIn);
+
+        subBtn = new QPushButton(centralWidget);
+        subBtn->setObjectName(QStringLiteral("subBtn"));
+
+        horizontalLayout_5->addWidget(subBtn);
+
+        horizontalLayout_5->setStretch(1, 90);
+
+        verticalLayout_2->addLayout(horizontalLayout_5);
+
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
@@ -222,8 +264,8 @@ public:
 
         verticalLayout->addLayout(verticalLayout_2);
 
-        verticalLayout->setStretch(0, 90);
-        verticalLayout->setStretch(1, 10);
+        verticalLayout->setStretch(1, 90);
+        verticalLayout->setStretch(2, 10);
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -234,10 +276,18 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\347\272\242\345\214\205\345\272\224\347\224\250", Q_NULLPTR));
+        nameLabel->setText(QApplication::translate("MainWindow", "TextLabel", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "\346\266\210\346\201\257\346\241\206", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "\347\273\237\350\256\241\344\277\241\346\201\257", Q_NULLPTR));
         dateIn->setDisplayFormat(QApplication::translate("MainWindow", "yyyy-MM-dd", Q_NULLPTR));
         countDownLabel->setText(QApplication::translate("MainWindow", "\350\257\267\347\202\271\345\207\273\345\274\200\345\247\213", Q_NULLPTR));
+        receiverSlc->clear();
+        receiverSlc->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "\347\216\213\350\200\201\345\270\210", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "\346\235\216\350\200\201\345\270\210", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "\345\255\231\350\200\201\345\270\210", Q_NULLPTR)
+        );
+        subBtn->setText(QApplication::translate("MainWindow", "Submit", Q_NULLPTR));
         netStartBtn->setText(QApplication::translate("MainWindow", "\344\272\222\350\201\224\347\275\221\347\211\210 \345\274\200\345\247\213", Q_NULLPTR));
         spbStartBtn->setText(QApplication::translate("MainWindow", "\344\277\241\346\201\257\351\253\230\351\223\201\347\211\210 \345\274\200\345\247\213", Q_NULLPTR));
     } // retranslateUi

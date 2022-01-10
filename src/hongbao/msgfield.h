@@ -8,6 +8,7 @@
 #include <QList>
 #include "msgbox.h"
 #include "public.h"
+#include "message.h"
 
 class MsgField : public QWidget
 {

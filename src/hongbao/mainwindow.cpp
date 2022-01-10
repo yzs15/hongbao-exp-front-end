@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->usIn, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::onUsChanged);
     connect(ui->netStartBtn, &QPushButton::released, this, &MainWindow::onNetBtnClicked);
     connect(ui->spbStartBtn, &QPushButton::released, this, &MainWindow::onSpbBtnClicked);
+    connect(ui->subBtn, &QPushButton::released, this, &MainWindow::onSubBtnClicked);
 
     this->sendDate = ui->dateIn->dateTime();
     this->sendTime = ui->timeIn->dateTime();
@@ -31,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->summaryArea->setWidget(this->msgSumArea);
 
     this->socket = Q_NULLPTR;
+
+    ui->nameLabel->setText(QString("%1，您好！").arg(NAME));
 }
 
 MainWindow::~MainWindow()
@@ -48,8 +51,12 @@ void MainWindow::createSocket() {
     qDebug()<<"create websocket to " << WS_SERVER[curEnv];
     connect(this->socket, &QWebSocket::disconnected, this, &MainWindow::onDisConnected);
     connect(this->socket, &QWebSocket::textMessageReceived, this, &MainWindow::onTextReceived);
+    connect(this->socket, &QWebSocket::binaryMessageReceived, this, &MainWindow::onBinaryReceived);
     connect(this->socket, &QWebSocket::connected, this, &MainWindow::onConnected);
-    this->socket->open(QUrl(WS_SERVER[curEnv]));
+
+    QUrl url = QUrl(WS_SERVER[curEnv]);
+    url.setQuery(QString("mac=") + QString(MAC_ADDR));
+    this->socket->open(url);
 }
 
 
@@ -62,38 +69,53 @@ void MainWindow::onDisConnected(){
     qDebug()<<"websocket is disconnected";
 }
 
+void MainWindow::onBinaryReceived(QByteArray msgRaw) {
+    time_t receivedTime = get_current_ns_timestamp();
+
+    MsgObj *obj = char2msg(msgRaw.constData(), msgRaw.size());
+    this->handleMessage(obj, receivedTime);
+}
+
 void MainWindow::onTextReceived(QString msgRaw){
     time_t receivedTime = get_current_ns_timestamp();
 
-    QStringList msgs = msgRaw.split("}\n{");
-    for (QStringList::iterator it = msgs.begin(); it != msgs.end(); it ++) {
-        QString msg = *it;
-        if (it != msgs.begin()) msg = "{" + msg;
-        if (it + 1 != msgs.end()) msg = msg + "}";
-        qDebug() << "receive a message: " << msg;
+    qDebug() << "Hello";
 
-        QJsonDocument doc = QJsonDocument::fromJson(msg.toUtf8());
-        QJsonObject json = doc.object();
-        this->handleMessage(json, receivedTime);
-    }
+    // FIXME if there are more than one message?
+    MsgObj *obj = char2msg(msgRaw.toStdString().c_str(), msgRaw.toStdString().size());
+    this->handleMessage(obj, receivedTime);
+
+    // QStringList msgs = msgRaw.split("}\n{");
+    // for (QStringList::iterator it = msgs.begin(); it != msgs.end(); it ++) {
+    //    QString msg = *it;
+    //    if (it != msgs.begin()) msg = "{" + msg;
+    //    if (it + 1 != msgs.end()) msg = msg + "}";
+    //    qDebug() << "receive a message: " << msg;
+    //    this->handleMessage(json, receivedTime);
+    // }
 }
 
-void MainWindow::handleMessage(QJsonObject &json, time_t receivedTime) {
-    MsgObj *obj = new MsgObj();
-    obj->id = json.value("ID").toDouble();
-    obj->sender = json["Sender"].toVariant().toLongLong();
-    obj->good = json["Good"].toBool();
-    obj->content = json["Content"].toString();
+void MainWindow::handleMessage(MsgObj *obj, time_t receivedTime) {
+    qDebug() << "receive a message" << obj->toString();
 
+    switch (obj->type) {
+    case NAME_MSG:
+        SENDER = obj->receiver;
+        MSG_SVR_ID = obj->sender;
+        MY_ID = SENDER>>30;
+        obj->content = QString("Your ID is %1").arg(MY_ID);
+        break;
+    case TEXT_MSG:
+        MsgObj callback;
+        callback.id = obj->id;
+        callback.sender = SENDER;
+        callback.receiver = MSG_SVR_ID;
+        callback.type = LOG_MSG;
+        callback.content = "";
+        callback.sendTime = receivedTime;
+        zmqSend(ZMQ_SERVER[curEnv], &callback);
+    }
     this->msgField->addMsg(obj);
-
-    MsgObj callback;
-    callback.id = obj->id;
-    callback.sender = 0;
-    callback.good = 3;
-    callback.content = "";
-    callback.sendTime = receivedTime;
-    zmqSend(ZMQ_SERVER[curEnv], &callback);
 
     logStore.add(curEnv, obj->id, receivedTime, "ReceiverReceived");
 }
@@ -116,36 +138,54 @@ void MainWindow::onUsChanged(const int newVal) {
 
 void MainWindow::onNetBtnClicked() {
     curEnv = INTERNET;
-    this->start();
+    this->msgField->clear();
+    this->createSocket();
 }
 
 void MainWindow::onSpbBtnClicked() {
     curEnv = SUPERBAHN;
-    this->start();
-}
-
-void MainWindow::start() {
     this->msgField->clear();
     this->createSocket();
+}
 
+void MainWindow::onSubBtnClicked() {
     time_t timestamp = combineTime(this->sendDate, this->sendTime, this->sendMs, this->sendUs);
 
     time_t cur_time = get_current_ns_timestamp();
-    if (cur_time >= timestamp) {
+    if (false && cur_time >= timestamp) {
         QLabel *label = new QLabel("设定时间已过，请重新设定。");
         label->show();
         return;
     }
 
-    MsgObj *obj = new MsgObj();
-    obj->id = MID(1);
-    obj->content = "信息高铁开通了！";
+    QString content = ui->msgIn->toPlainText();
+    if (false && content.size() == 0) {
+        QLabel *label = new QLabel("请输入要发送的内容");
+        label->show();
+        return;
+    }
 
-    Alarm *alarm = new Alarm(this, timestamp, obj);
-    alarm->start();
+    int receiver = ui->receiverSlc->currentIndex();
+    uint64_t receiverId = RECEIVER_ID[receiver];
+
+    MsgObj *obj = new MsgObj();
+    obj->id = get_current_ns_timestamp();
+    obj->receiver = receiverId;
+    obj->type = TEXT_MSG;
+    obj->content = content;
+    qDebug() << obj->toString();
+
+    timestamp = get_current_ns_timestamp() + uint64_t(1) * 1000000000;
+    this->alarm = new Alarm(this, timestamp, obj);
+    connect(this->alarm, &Alarm::timeOut, this, &MainWindow::onMsgSended);
+    this->alarm->start();
 
     Countdown *countdown = new Countdown(this, timestamp, ui->countDownLabel);
     countdown->start();
+}
+
+void MainWindow::onMsgSended(Alarm *alarm) {
+    this->msgField->addMsg(alarm->msgObj);
 }
 
 void MainWindow::onThingHideChanged() {

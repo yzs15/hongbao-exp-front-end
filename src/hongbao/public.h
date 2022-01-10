@@ -6,30 +6,31 @@
 #define INTERNET 0
 #define SUPERBAHN 1
 
-#define SENDER 0
-#define MID(id) (((uint64_t)(SENDER) << 32) | id)
-
 #define SLEEP_THRESHOLD_NS 120000
 #define SLEEP_DURATION_NS 100000
+
+#define SID(id) (id & ((1<<30)-1))
+#define CID(id) (id >> 30)
 
 #include <QString>
 #include "logstore.h"
 
+extern char *NAMES[];
+
 extern char* WS_SERVER[];
 extern char* ZMQ_SERVER[];
+extern uint64_t RECEIVER_ID[];
+extern char* MAC_ADDR;
+extern char* NAME;
 
 extern int curEnv;
 
+extern int MY_ID;
+extern int SENDER;
+extern int MSG_SVR_ID;
+
 extern LogStore logStore;
 
-class MsgObj {
-public:
-    uint64_t id = 0;
-    uint32_t sender = SENDER;
-    uint8_t good = 1;
-    QString content = "";
-    uint64_t sendTime = 0;
-};
 
 class MsgDetailObj {
 public:

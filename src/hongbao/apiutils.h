@@ -3,6 +3,7 @@
 
 #include <QtWebSockets/QtWebSockets>
 #include "public.h"
+#include "message.h"
 #include "commutils.h"
 #include <czmq.h>
 
@@ -23,7 +24,7 @@ public:
 QJsonObject makeMsgJson(MsgObj* param);
 
 // 通过 WebSocket 发送消息，并返回发送时间
-time_t sendMsg(QWebSocket *ws, MsgSendObj* param);
+time_t wsSend(QWebSocket *ws, MsgObj* obj);
 
 time_t zmqSend(char* endpoint, MsgObj *obj);
 

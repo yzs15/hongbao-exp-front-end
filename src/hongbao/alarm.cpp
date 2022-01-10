@@ -13,27 +13,32 @@ Alarm::~Alarm() {
 
 void Alarm::run() {
     zsock_t *socket = zsock_new_push(ZMQ_SERVER[curEnv]);
-    zmsg_t *msg = zmsg_new();
+    this->msgObj->sender = SENDER;
 
-    QJsonObject json = makeMsgJson(this->msgObj);
+    char *raw = Q_NULLPTR;
+    int len = this->msgObj->toBytes(&raw);
 
     ns_sleep_until(this->reqSendTime, SLEEP_THRESHOLD_NS);
 
-    json["SendTime"] = qlonglong(get_current_ns_timestamp());
-    QJsonDocument doc(json);
-    QString payload = doc.toJson(QJsonDocument::Compact);
+    time_t now = get_current_ns_timestamp();
+    memcpy(raw+len-8, &now, 8);
 
-    zmsg_addstr(msg, payload.toStdString().c_str());
-
-    time_t sendTime = get_current_ns_timestamp();
-    int ok = zmsg_send(&msg, socket);
+    zframe_t *frame = zframe_new(raw, len);
+    int ok = zframe_send(&frame, socket, 0);
     if (ok != 0) {
         qDebug() << "zmq send message failel, " << ok;
     }
 
-    zmsg_destroy(&msg);
+    zframe_destroy(&frame);
     zsock_destroy(&socket);
 
-    qDebug() << "zmq send a message: " << payload << " at " << sendTime;
+    MsgObj* newObj = char2msg(raw, len);
+    time_t sendTime = newObj->sendTime;
+    delete newObj;
+    delete raw;
+
+    qDebug() << "zmq send a message, size: " << len << " at " << sendTime;
     logStore.add(curEnv, this->msgObj->id, sendTime, "SenderSended");
+
+    emit this->timeOut(this);
 }

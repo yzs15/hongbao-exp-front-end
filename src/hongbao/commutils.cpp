@@ -65,3 +65,26 @@ uint64_t str2uint64_t(QString s) {
     }
     return res;
 }
+
+char* get_mac() {
+    struct ifreq ifreq;
+    int sock;
+    char *mac = new char[18];
+
+    if ((sock = socket (AF_INET, SOCK_STREAM, 0)) < 0) {
+        perror ("socket");
+        return Q_NULLPTR;
+    }
+    strcpy (ifreq.ifr_name, "eth0");    //Currently, only get eth0
+
+    if (ioctl (sock, SIOCGIFHWADDR, &ifreq) < 0) {
+        perror ("ioctl");
+        return Q_NULLPTR;
+    }
+
+    snprintf (mac, 18, "%02x:%02x:%02x:%02x:%02x:%02x",
+            (unsigned char) ifreq.ifr_hwaddr.sa_data[0], (unsigned char) ifreq.ifr_hwaddr.sa_data[1],
+            (unsigned char) ifreq.ifr_hwaddr.sa_data[2], (unsigned char) ifreq.ifr_hwaddr.sa_data[3],
+            (unsigned char) ifreq.ifr_hwaddr.sa_data[4], (unsigned char) ifreq.ifr_hwaddr.sa_data[5]);
+    return mac;
+}

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include "public.h"
+#include "message.h"
 
 namespace Ui {
 class MsgBox;

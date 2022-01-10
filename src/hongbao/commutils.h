@@ -7,6 +7,13 @@
 #include <QDebug>
 #include "public.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <net/if.h>
 
 time_t get_current_ns_timestamp();
 
@@ -17,5 +24,7 @@ time_t str2time_t(QString str);
 QString time_t2str(time_t t);
 
 uint64_t str2uint64_t(QString s);
+
+char* get_mac();
 
 #endif // COMMUTILS_H

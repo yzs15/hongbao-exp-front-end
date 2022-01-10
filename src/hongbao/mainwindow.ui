@@ -26,7 +26,21 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="90,10">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,90,10">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="nameLabel">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="40,60">
       <property name="rightMargin">
@@ -73,7 +87,7 @@
              <x>0</x>
              <y>0</y>
              <width>562</width>
-             <height>760</height>
+             <height>687</height>
             </rect>
            </property>
           </widget>
@@ -113,7 +127,7 @@
              <x>0</x>
              <y>0</y>
              <width>846</width>
-             <height>762</height>
+             <height>689</height>
             </rect>
            </property>
           </widget>
@@ -216,6 +230,39 @@
            </widget>
           </item>
          </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,90,0">
+        <item>
+         <widget class="QComboBox" name="receiverSlc">
+          <item>
+           <property name="text">
+            <string>王老师</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>李老师</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>孙老师</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPlainTextEdit" name="msgIn"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="subBtn">
+          <property name="text">
+           <string>Submit</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

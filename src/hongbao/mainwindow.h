@@ -18,6 +18,8 @@
 #include "msgsummary.h"
 #include "commutils.h"
 #include "countdown.h"
+#include "message.h"
+#include "commutils.h"
 
 namespace Ui {
 class MainWindow;
@@ -46,12 +48,15 @@ private:
     int sendMs;
     int sendUs;
 
+    Alarm* alarm;
+
     void start();
-    void handleMessage(QJsonObject &json, time_t receivedTime);
+    void handleMessage(MsgObj *obj, time_t receivedTime);
 
 private slots:
     // WebScoket
     void onConnected();
+    void onBinaryReceived(QByteArray msgRaw);
     void onTextReceived(QString msg);
     void onDisConnected();
 
@@ -64,10 +69,13 @@ private slots:
     // send message
     void onNetBtnClicked();
     void onSpbBtnClicked();
+    void onSubBtnClicked();
 
     void onThingHideChanged();
 
     void onMsgSelected(MsgDetailObj* obj);
+
+    void onMsgSended(Alarm* alarm);
 };
 
 #endif // MAINWINDOW_H
