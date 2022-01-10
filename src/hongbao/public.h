@@ -25,9 +25,7 @@ extern char* NAME;
 
 extern int curEnv;
 
-extern int MY_ID;
-extern int SENDER;
-extern int MSG_SVR_ID;
+extern uint64_t SENDER;
 
 extern LogStore logStore;
 

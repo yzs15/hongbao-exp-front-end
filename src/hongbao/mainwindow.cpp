@@ -101,15 +101,14 @@ void MainWindow::handleMessage(MsgObj *obj, time_t receivedTime) {
     switch (obj->type) {
     case NAME_MSG:
         SENDER = obj->receiver;
-        MSG_SVR_ID = obj->sender;
-        MY_ID = SENDER>>30;
-        obj->content = QString("Your ID is %1").arg(MY_ID);
+        // qDebug() << bin << SENDER <<  MY_ID << " " << SID(SENDER);
+        obj->content = QString("Your ID is %1").arg(CID(SENDER));
         break;
     case TEXT_MSG:
         MsgObj callback;
         callback.id = obj->id;
         callback.sender = SENDER;
-        callback.receiver = MSG_SVR_ID;
+        callback.receiver = SID(SENDER);
         callback.type = LOG_MSG;
         callback.content = "";
         callback.sendTime = receivedTime;

@@ -14,9 +14,6 @@ char* MAC_ADDR;
 char* NAME;
 
 int curEnv;
-
-int MY_ID;
-int SENDER;
-int MSG_SVR_ID;
+uint64_t SENDER;
 
 LogStore logStore;
