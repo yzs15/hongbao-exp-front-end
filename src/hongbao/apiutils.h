@@ -21,11 +21,18 @@ public:
     QString reqContent = "";
 };
 
-QJsonObject makeMsgJson(MsgObj* param);
+// QJsonObject makeMsgJson(MsgObj* param);
 
 // 通过 WebSocket 发送消息，并返回发送时间
-time_t wsSend(QWebSocket *ws, MsgObj* obj);
+// time_t wsSend(QWebSocket *ws, MsgObj* obj);
 
+typedef struct zsock_cache_s {
+    zsock_t* sock;
+    bool in_use;
+} zsock_cache_t;
+extern vector<zsock_cache_t> zsock_cache;
+
+int getZsock();
 time_t zmqSend(char* endpoint, MsgObj *obj);
 
 #endif // APIUTILS_H

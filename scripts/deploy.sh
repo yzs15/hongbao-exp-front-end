@@ -2,11 +2,14 @@
 cd $(dirname "$0")
 cd ..
 
-SERVER=kbnj1
-PRO_DIR='~/projects/hongbao-fe'
+if [ $# -lt 1 ]; then
+  echo "usage: deploy.sh SERVER"
+  exit 1
+fi
 
-SERVER=lab3n
+
+SERVER=$1
+
 PRO_DIR='~/projects/hongbao-fe'
-PRO_DIR='~/projects/cs101/hongbao/qt'
 
 rsync -aP ./* $SERVER:$PRO_DIR/

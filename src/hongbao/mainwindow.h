@@ -7,6 +7,7 @@
 #include <QDateEdit>
 #include <QTimeEdit>
 #include <QDateTime>
+#include <QRadioButton>
 #include <QSpinBox>
 #include <QMap>
 #include "msgfield.h"
@@ -41,17 +42,27 @@ private:
     MsgField *msgField;
     MsgSummary* msgSumArea;
 
+    QRadioButton* hbRadios[9];
+
     QWebSocket *socket;
+
+    int mid = 1;
 
     QDateTime sendDate;
     QDateTime sendTime;
     int sendMs;
     int sendUs;
 
-    Alarm* alarm;
+    MsgObj* proofMsg = Q_NULLPTR;
 
-    void start();
+    Alarm* alarm;
+    Countdown* countdown;
+
+    void testAndBuildProof();
     void handleMessage(MsgObj *obj, time_t receivedTime);
+    void handleProof(MsgObj *obj, time_t receivedTime);
+    void handleNotice(MsgObj *recvObj, time_t receivedTime);
+    void handleText(MsgObj* obj, time_t receivedTime);
 
 private slots:
     // WebScoket
@@ -61,15 +72,16 @@ private slots:
     void onDisConnected();
 
     // input change
-    void onDateChanged(const QDateTime& newDate);
-    void onTimeChanged(const QDateTime& newTime);
-    void onMsChanged(const int newVal);
-    void onUsChanged(const int oldVal);
+    //void onDateChanged(const QDateTime& newDate);
+    //void onTimeChanged(const QDateTime& newTime);
+    //void onMsChanged(const int newVal);
+    //void onUsChanged(const int oldVal);
 
     // send message
     void onNetBtnClicked();
     void onSpbBtnClicked();
     void onSubBtnClicked();
+    void onRedirectBtnClicked();
 
     void onThingHideChanged();
 

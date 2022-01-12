@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>900</height>
+    <width>1024</width>
+    <height>758</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -86,8 +86,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>562</width>
-             <height>687</height>
+             <width>395</width>
+             <height>526</height>
             </rect>
            </property>
           </widget>
@@ -106,7 +106,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>统计信息</string>
+           <string>凭证展示框</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -114,24 +114,67 @@
          </widget>
         </item>
         <item>
-         <widget class="QScrollArea" name="summaryArea">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
+         <widget class="QLabel" name="proofLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
+          <property name="minimumSize">
+           <size>
+            <width>500</width>
+            <height>500</height>
+           </size>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>846</width>
-             <height>689</height>
-            </rect>
-           </property>
-          </widget>
+          <property name="text">
+           <string>暂无凭证</string>
+          </property>
+          <property name="scaledContents">
+           <bool>false</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="redirectLayout">
+          <item>
+           <widget class="QLabel" name="redLabel">
+            <property name="text">
+             <string>转发给</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="redLi">
+            <property name="text">
+             <string>李老师</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="redSun">
+            <property name="text">
+             <string>孙老师</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="redBtn">
+            <property name="text">
+             <string>确认转发</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -143,76 +186,25 @@
        <number>0</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="60,40">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,40">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="30,30,20,20">
-          <item>
-           <widget class="QDateEdit" name="dateIn">
-            <property name="dateTime">
-             <datetime>
-              <hour>0</hour>
-              <minute>0</minute>
-              <second>0</second>
-              <year>2022</year>
-              <month>1</month>
-              <day>5</day>
-             </datetime>
-            </property>
-            <property name="currentSection">
-             <enum>QDateTimeEdit::YearSection</enum>
-            </property>
-            <property name="displayFormat">
-             <string>yyyy-MM-dd</string>
-            </property>
-            <property name="timeSpec">
-             <enum>Qt::UTC</enum>
-            </property>
-            <property name="date">
-             <date>
-              <year>2022</year>
-              <month>1</month>
-              <day>5</day>
-             </date>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTimeEdit" name="timeIn">
-            <property name="displayFormat">
-             <string notr="true">HH:mm:ss</string>
-            </property>
-            <property name="timeSpec">
-             <enum>Qt::UTC</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="msIn">
-            <property name="maximum">
-             <number>999</number>
-            </property>
-            <property name="singleStep">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="usIn">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="maximum">
-             <number>999</number>
-            </property>
-            <property name="singleStep">
-             <number>100</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QWidget" name="hbWidget" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>选中要发送的红包</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -236,23 +228,32 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,90,0">
         <item>
-         <widget class="QComboBox" name="receiverSlc">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
           <item>
-           <property name="text">
-            <string>王老师</string>
-           </property>
+           <widget class="QCheckBox" name="teachWang">
+            <property name="text">
+             <string>王老师</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <property name="text">
-            <string>李老师</string>
-           </property>
+           <widget class="QCheckBox" name="teachLi">
+            <property name="text">
+             <string>李老师</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <property name="text">
-            <string>孙老师</string>
-           </property>
+           <widget class="QCheckBox" name="teachSun">
+            <property name="text">
+             <string>孙老师</string>
+            </property>
+           </widget>
           </item>
-         </widget>
+         </layout>
         </item>
         <item>
          <widget class="QPlainTextEdit" name="msgIn"/>
@@ -260,7 +261,7 @@
         <item>
          <widget class="QPushButton" name="subBtn">
           <property name="text">
-           <string>Submit</string>
+           <string>定时发送</string>
           </property>
          </widget>
         </item>
@@ -274,14 +275,14 @@
         <item>
          <widget class="QPushButton" name="netStartBtn">
           <property name="text">
-           <string>互联网版 开始</string>
+           <string>测试并生成凭证 (互联网版)</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="spbStartBtn">
           <property name="text">
-           <string>信息高铁版 开始</string>
+           <string>测试并生成凭证 (信息高铁版)</string>
           </property>
          </widget>
         </item>

@@ -34,7 +34,9 @@ int MsgObj::toBytes(char **rawP) {
 }
 
 QString MsgObj::toString() {
-    return QString("MsgObj{%1, %2, %3, %4, %5, %6}").arg(this->id).arg(this->sender).arg(this->receiver).arg(this->type).arg(this->content).arg(this->sendTime);
+    return QString("MsgObj{%1, %2, %3, %4, %5}").arg(id2string(this->id))
+            .arg(id2string(this->sender)).arg(id2string(this->receiver))
+            .arg(this->type).arg(this->sendTime);
 }
 
 void updateSendTime(char *raw, int len) {
@@ -60,7 +62,7 @@ MsgObj* char2msg(const char *raw, int len) {
     memcpy(&obj->type, raw+offset, 1);
     offset += 1;
 
-    obj->content = QString::fromUtf8(raw+offset, contentLen);
+    obj->content = QByteArray::fromRawData(raw+offset, contentLen);
     offset += contentLen;
 
     memcpy(&obj->sendTime, raw+offset, 8);

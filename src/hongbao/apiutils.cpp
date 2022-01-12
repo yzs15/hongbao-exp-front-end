@@ -1,36 +1,8 @@
 #include "apiutils.h"
 #include <QDebug>
 
-time_t wsSend(QWebSocket *ws, MsgObj* obj) {
-    QJsonObject json = makeMsgJson(obj);
-    QJsonDocument doc(json);
-    QString payload = doc.toJson(QJsonDocument::Compact);
-
-    time_t sendTime = get_current_ns_timestamp();
-    ws->sendTextMessage(payload);
-    qDebug() << "websocket send a message: " << payload;
-
-    return sendTime;
-}
-
-QJsonObject makeMsgJson(MsgObj* param) {
-    QJsonObject json;
-
-    json["ID"] = qlonglong(param->id);
-    json["Sender"] = qlonglong(param->sender);
-    json["Receiver"] = qlonglong(param->receiver);
-    json["Content"] = param->content;
-    json["SendTime"] = qlonglong(param->sendTime);
-
-    return json;
-}
-
 
 /* ZMQ */
-typedef struct zsock_cache_s {
-    zsock_t* sock;
-    bool in_use;
-} zsock_cache_t;
 pthread_mutex_t utils_zsock_cache_mutex = PTHREAD_MUTEX_INITIALIZER;
 vector<zsock_cache_t> zsock_cache;
 
@@ -65,10 +37,8 @@ time_t zmqSend(char* endpoint, MsgObj *obj) {
     char *raw = Q_NULLPTR;
     int len = obj->toBytes(&raw);
 
-    time_t now = get_current_ns_timestamp();
-    memcpy(raw+len-8, &now, 8);
-
     zframe_t *frame = zframe_new(raw, len);
+    time_t sendTime = get_current_ns_timestamp();
     int ok = zframe_send(&frame, socket, 0);
     if (ok != 0) {
         qDebug() << "zmq send message failed, " << ok;
@@ -77,11 +47,6 @@ time_t zmqSend(char* endpoint, MsgObj *obj) {
     zframe_destroy(&frame);
     zsock_cache[zi].in_use = false;
 
-    MsgObj* newObj = char2msg(raw, len);
-    time_t sendTime = newObj->sendTime;
-    delete newObj;
-    delete raw;
-
-    qDebug() << "zmq send a message " <<  " to " << endpoint << " at " << sendTime;
+    qDebug() << sendTime << "util send a message, size:" << len;
     return sendTime;
 }

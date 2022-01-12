@@ -27,4 +27,6 @@ uint64_t str2uint64_t(QString s);
 
 char* get_mac();
 
+QString id2string(uint64_t id);
+
 #endif // COMMUTILS_H

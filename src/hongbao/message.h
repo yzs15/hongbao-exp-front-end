@@ -22,7 +22,7 @@ public:
     uint64_t sender = SENDER;
     uint64_t receiver = 0;
     uint8_t type = TEXT_MSG;
-    QString content = "";
+    QByteArray content = "";
     uint64_t sendTime = 0;
 
     int toBytes(char **raw);

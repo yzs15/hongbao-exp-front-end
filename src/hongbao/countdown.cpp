@@ -1,7 +1,7 @@
 #include "countdown.h"
 
-Countdown::Countdown(QObject* parent, time_t t, QLabel* b)
-    : QThread(parent), startTime(t), board(b)
+Countdown::Countdown(QObject* parent, time_t t, QLabel* b, QString te)
+    : QThread(parent), startTime(t), board(b), temp(te)
 {
 
 }
@@ -14,7 +14,7 @@ void Countdown::run() {
     while (curTime < this->startTime) {
         curTime = get_current_ns_timestamp();
         time_t remain = (startTime - curTime) / 1e9;
-        this->board->setText(QString::number(remain));
+        this->board->setText(temp.arg(remain));
         this->board->update();
         sleep(1);
     }

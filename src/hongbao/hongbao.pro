@@ -36,7 +36,8 @@ SOURCES += \
     public.cpp \
     logstore.cpp \
     countdown.cpp \
-    message.cpp
+    message.cpp \
+    proofform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -51,13 +52,15 @@ HEADERS += \
     msgsummary.h \
     logstore.h \
     countdown.h \
-    message.h
+    message.h \
+    proofform.h
 
 FORMS += \
         mainwindow.ui \
     msgbox.ui \
     msgdetail.ui \
-    msgsummary.ui
+    msgsummary.ui \
+    proofform.ui
 
 unix:!macx: LIBS += -L$$PWD/../lib/ -lczmq
 

@@ -88,3 +88,7 @@ char* get_mac() {
             (unsigned char) ifreq.ifr_hwaddr.sa_data[4], (unsigned char) ifreq.ifr_hwaddr.sa_data[5]);
     return mac;
 }
+
+QString id2string(uint64_t id) {
+    return QString("%1.%2.%3").arg(DMID(id)).arg(CID(id)).arg(SID(id));
+}

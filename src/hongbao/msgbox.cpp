@@ -10,17 +10,11 @@ MsgBox::MsgBox(QWidget *parent, MsgObj* origin) :
     this->obj = origin;
 
     uint64_t send_id = this->obj->sender;
-    int send_sid = SID(send_id);
-    int send_cid = CID(send_id);
-
     QString author;
-    if (send_sid == 1 && send_cid > 0 && send_cid <= 2) {
-        author = NAMES[send_cid - 1];
-    } else if (send_sid == 2 && send_cid > 0 && send_cid <= 1) {
-        author = NAMES[2];
-    } else {
-        author = QString("%1.%2").arg(CID(send_id)).arg(SID(send_id));
+    for (int i = 0; i < 3; i++) {
+        if (send_id == RECEIVER_ID[i]) author = NAMES[i];
     }
+    if (author.size() == 0) author = QString("%1.%2").arg(CID(send_id)).arg(SID(send_id));
     ui->authorLabel->setText(author);
 
     ui->msgLabel->setText(this->obj->content);
@@ -43,5 +37,5 @@ QString MsgBox::getAuthor() const {
 }
 
 void MsgBox::mousePressEvent(QMouseEvent* event) {
-    emit clicked(NULL);
+    // emit clicked(NULL);
 }

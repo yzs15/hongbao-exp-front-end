@@ -18,13 +18,19 @@ char *mac_addr[] = {
 
 int main(int argc, char *argv[])
 {
+    int sid;
+    int cid;
     if (argc < 3) {
-        printf("need SID CID");
-        exit(1);
+        sid = 1;
+        cid = 2;
+        // printf("need SID CID");
+        // exit(1);
+    } else {
+        sid = atoi(argv[1]);
+        cid = atoi(argv[2]);
     }
 
-    int sid = atoi(argv[1]);
-    int cid = atoi(argv[2]);
+
 
     WS_SERVER[0] = ws_end_net[sid - 1];
     WS_SERVER[1] = ws_end_spb[sid - 1];
@@ -33,11 +39,9 @@ int main(int argc, char *argv[])
     ZMQ_SERVER[1] = zmq_end_spb[sid - 1];
 
     if (sid == 1) {
-        MAC_ADDR = mac_addr[cid - 1];
-        NAME = NAMES[cid - 1];
+        WHOAMI = cid - 1;
     } else {
-        MAC_ADDR = mac_addr[2];
-        NAME = NAMES[2];
+        WHOAMI = 2;
     }
 
 

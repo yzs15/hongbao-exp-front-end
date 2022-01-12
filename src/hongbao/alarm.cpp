@@ -12,7 +12,8 @@ Alarm::~Alarm() {
 }
 
 void Alarm::run() {
-    zsock_t *socket = zsock_new_push(ZMQ_SERVER[curEnv]);
+    int zi = getZsock();
+    zsock_t *socket = zsock_cache[zi].sock;
     this->msgObj->sender = SENDER;
 
     char *raw = Q_NULLPTR;
@@ -30,14 +31,14 @@ void Alarm::run() {
     }
 
     zframe_destroy(&frame);
-    zsock_destroy(&socket);
+    zsock_cache[zi].in_use = false;
 
     MsgObj* newObj = char2msg(raw, len);
     time_t sendTime = newObj->sendTime;
     delete newObj;
     delete raw;
 
-    qDebug() << "zmq send a message, size: " << len << " at " << sendTime;
+    qDebug() << sendTime << "util send a message, size:" << len;
     logStore.add(curEnv, this->msgObj->id, sendTime, "SenderSended");
 
     emit this->timeOut(this);

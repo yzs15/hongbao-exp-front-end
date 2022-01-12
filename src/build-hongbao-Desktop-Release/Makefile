@@ -63,14 +63,16 @@ SOURCES       = ../hongbao/main.cpp \
 		../hongbao/public.cpp \
 		../hongbao/logstore.cpp \
 		../hongbao/countdown.cpp \
-		../hongbao/message.cpp moc_mainwindow.cpp \
+		../hongbao/message.cpp \
+		../hongbao/proofform.cpp moc_mainwindow.cpp \
 		moc_msgfield.cpp \
 		moc_msgbox.cpp \
 		moc_userform.cpp \
 		moc_msgdetail.cpp \
 		moc_alarm.cpp \
 		moc_msgsummary.cpp \
-		moc_countdown.cpp
+		moc_countdown.cpp \
+		moc_proofform.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		msgfield.o \
@@ -85,6 +87,7 @@ OBJECTS       = main.o \
 		logstore.o \
 		countdown.o \
 		message.o \
+		proofform.o \
 		moc_mainwindow.o \
 		moc_msgfield.o \
 		moc_msgbox.o \
@@ -92,7 +95,8 @@ OBJECTS       = main.o \
 		moc_msgdetail.o \
 		moc_alarm.o \
 		moc_msgsummary.o \
-		moc_countdown.o
+		moc_countdown.o \
+		moc_proofform.o
 DIST          = /usr/local/mkspecs/features/spec_pre.prf \
 		/usr/local/mkspecs/common/unix.conf \
 		/usr/local/mkspecs/common/linux.conf \
@@ -277,7 +281,8 @@ DIST          = /usr/local/mkspecs/features/spec_pre.prf \
 		../hongbao/msgsummary.h \
 		../hongbao/logstore.h \
 		../hongbao/countdown.h \
-		../hongbao/message.h ../hongbao/main.cpp \
+		../hongbao/message.h \
+		../hongbao/proofform.h ../hongbao/main.cpp \
 		../hongbao/mainwindow.cpp \
 		../hongbao/msgfield.cpp \
 		../hongbao/msgbox.cpp \
@@ -290,7 +295,8 @@ DIST          = /usr/local/mkspecs/features/spec_pre.prf \
 		../hongbao/public.cpp \
 		../hongbao/logstore.cpp \
 		../hongbao/countdown.cpp \
-		../hongbao/message.cpp
+		../hongbao/message.cpp \
+		../hongbao/proofform.cpp
 QMAKE_TARGET  = hongbao
 DESTDIR       = 
 TARGET        = hongbao
@@ -299,7 +305,7 @@ TARGET        = hongbao
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_msgbox.h ui_msgdetail.h ui_msgsummary.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_msgbox.h ui_msgdetail.h ui_msgsummary.h ui_proofform.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../hongbao/hongbao.pro /usr/local/mkspecs/linux-g++/qmake.conf /usr/local/mkspecs/features/spec_pre.prf \
@@ -674,9 +680,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../hongbao/mainwindow.h ../hongbao/msgfield.h ../hongbao/msgbox.h ../hongbao/userform.h ../hongbao/msgdetail.h ../hongbao/public.h ../hongbao/apiutils.h ../hongbao/commutils.h ../hongbao/alarm.h ../hongbao/msgsummary.h ../hongbao/logstore.h ../hongbao/countdown.h ../hongbao/message.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../hongbao/main.cpp ../hongbao/mainwindow.cpp ../hongbao/msgfield.cpp ../hongbao/msgbox.cpp ../hongbao/userform.cpp ../hongbao/msgdetail.cpp ../hongbao/apiutils.cpp ../hongbao/commutils.cpp ../hongbao/alarm.cpp ../hongbao/msgsummary.cpp ../hongbao/public.cpp ../hongbao/logstore.cpp ../hongbao/countdown.cpp ../hongbao/message.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../hongbao/mainwindow.ui ../hongbao/msgbox.ui ../hongbao/msgdetail.ui ../hongbao/msgsummary.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../hongbao/mainwindow.h ../hongbao/msgfield.h ../hongbao/msgbox.h ../hongbao/userform.h ../hongbao/msgdetail.h ../hongbao/public.h ../hongbao/apiutils.h ../hongbao/commutils.h ../hongbao/alarm.h ../hongbao/msgsummary.h ../hongbao/logstore.h ../hongbao/countdown.h ../hongbao/message.h ../hongbao/proofform.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../hongbao/main.cpp ../hongbao/mainwindow.cpp ../hongbao/msgfield.cpp ../hongbao/msgbox.cpp ../hongbao/userform.cpp ../hongbao/msgdetail.cpp ../hongbao/apiutils.cpp ../hongbao/commutils.cpp ../hongbao/alarm.cpp ../hongbao/msgsummary.cpp ../hongbao/public.cpp ../hongbao/logstore.cpp ../hongbao/countdown.cpp ../hongbao/message.cpp ../hongbao/proofform.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../hongbao/mainwindow.ui ../hongbao/msgbox.ui ../hongbao/msgdetail.ui ../hongbao/msgsummary.ui ../hongbao/proofform.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -708,17 +714,17 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/local/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/local/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_msgfield.cpp moc_msgbox.cpp moc_userform.cpp moc_msgdetail.cpp moc_alarm.cpp moc_msgsummary.cpp moc_countdown.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_msgfield.cpp moc_msgbox.cpp moc_userform.cpp moc_msgdetail.cpp moc_alarm.cpp moc_msgsummary.cpp moc_countdown.cpp moc_proofform.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_msgfield.cpp moc_msgbox.cpp moc_userform.cpp moc_msgdetail.cpp moc_alarm.cpp moc_msgsummary.cpp moc_countdown.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_msgfield.cpp moc_msgbox.cpp moc_userform.cpp moc_msgdetail.cpp moc_alarm.cpp moc_msgsummary.cpp moc_countdown.cpp moc_proofform.cpp
 moc_mainwindow.cpp: ../hongbao/msgfield.h \
 		../hongbao/msgbox.h \
 		../hongbao/public.h \
 		../hongbao/logstore.h \
 		../hongbao/message.h \
+		../hongbao/commutils.h \
 		../hongbao/userform.h \
 		../hongbao/msgdetail.h \
-		../hongbao/commutils.h \
 		../hongbao/apiutils.h \
 		../hongbao/alarm.h \
 		../hongbao/msgsummary.h \
@@ -732,6 +738,7 @@ moc_msgfield.cpp: ../hongbao/msgbox.h \
 		../hongbao/public.h \
 		../hongbao/logstore.h \
 		../hongbao/message.h \
+		../hongbao/commutils.h \
 		../hongbao/msgfield.h \
 		moc_predefs.h \
 		/usr/local/bin/moc
@@ -740,6 +747,7 @@ moc_msgfield.cpp: ../hongbao/msgbox.h \
 moc_msgbox.cpp: ../hongbao/public.h \
 		../hongbao/logstore.h \
 		../hongbao/message.h \
+		../hongbao/commutils.h \
 		../hongbao/msgbox.h \
 		moc_predefs.h \
 		/usr/local/bin/moc
@@ -762,6 +770,7 @@ moc_alarm.cpp: ../hongbao/public.h \
 		../hongbao/logstore.h \
 		../hongbao/commutils.h \
 		../hongbao/apiutils.h \
+		../hongbao/message.h \
 		../hongbao/alarm.h \
 		moc_predefs.h \
 		/usr/local/bin/moc
@@ -783,11 +792,16 @@ moc_countdown.cpp: ../hongbao/commutils.h \
 		/usr/local/bin/moc
 	/usr/local/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/mkspecs/linux-g++ -I/home/jian/hongbao/qt/src/hongbao -I/usr/local/include/QtWidgets -I/usr/local/include/QtGui -I/usr/local/include/QtWebSockets -I/usr/local/include/QtNetwork -I/usr/local/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../hongbao/countdown.h -o moc_countdown.cpp
 
+moc_proofform.cpp: ../hongbao/proofform.h \
+		moc_predefs.h \
+		/usr/local/bin/moc
+	/usr/local/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/mkspecs/linux-g++ -I/home/jian/hongbao/qt/src/hongbao -I/usr/local/include/QtWidgets -I/usr/local/include/QtGui -I/usr/local/include/QtWebSockets -I/usr/local/include/QtNetwork -I/usr/local/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../hongbao/proofform.h -o moc_proofform.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_msgbox.h ui_msgdetail.h ui_msgsummary.h
+compiler_uic_make_all: ui_mainwindow.h ui_msgbox.h ui_msgdetail.h ui_msgsummary.h ui_proofform.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_msgbox.h ui_msgdetail.h ui_msgsummary.h
+	-$(DEL_FILE) ui_mainwindow.h ui_msgbox.h ui_msgdetail.h ui_msgsummary.h ui_proofform.h
 ui_mainwindow.h: ../hongbao/mainwindow.ui \
 		/usr/local/bin/uic
 	/usr/local/bin/uic ../hongbao/mainwindow.ui -o ui_mainwindow.h
@@ -803,6 +817,10 @@ ui_msgdetail.h: ../hongbao/msgdetail.ui \
 ui_msgsummary.h: ../hongbao/msgsummary.ui \
 		/usr/local/bin/uic
 	/usr/local/bin/uic ../hongbao/msgsummary.ui -o ui_msgsummary.h
+
+ui_proofform.h: ../hongbao/proofform.ui \
+		/usr/local/bin/uic
+	/usr/local/bin/uic ../hongbao/proofform.ui -o ui_proofform.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -820,9 +838,9 @@ main.o: ../hongbao/main.cpp ../hongbao/mainwindow.h \
 		../hongbao/public.h \
 		../hongbao/logstore.h \
 		../hongbao/message.h \
+		../hongbao/commutils.h \
 		../hongbao/userform.h \
 		../hongbao/msgdetail.h \
-		../hongbao/commutils.h \
 		../hongbao/apiutils.h \
 		../hongbao/alarm.h \
 		../hongbao/msgsummary.h \
@@ -835,9 +853,9 @@ mainwindow.o: ../hongbao/mainwindow.cpp ../hongbao/mainwindow.h \
 		../hongbao/public.h \
 		../hongbao/logstore.h \
 		../hongbao/message.h \
+		../hongbao/commutils.h \
 		../hongbao/userform.h \
 		../hongbao/msgdetail.h \
-		../hongbao/commutils.h \
 		../hongbao/apiutils.h \
 		../hongbao/alarm.h \
 		../hongbao/msgsummary.h \
@@ -849,13 +867,15 @@ msgfield.o: ../hongbao/msgfield.cpp ../hongbao/msgfield.h \
 		../hongbao/msgbox.h \
 		../hongbao/public.h \
 		../hongbao/logstore.h \
-		../hongbao/message.h
+		../hongbao/message.h \
+		../hongbao/commutils.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o msgfield.o ../hongbao/msgfield.cpp
 
 msgbox.o: ../hongbao/msgbox.cpp ../hongbao/msgbox.h \
 		../hongbao/public.h \
 		../hongbao/logstore.h \
 		../hongbao/message.h \
+		../hongbao/commutils.h \
 		ui_msgbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o msgbox.o ../hongbao/msgbox.cpp
 
@@ -872,6 +892,7 @@ msgdetail.o: ../hongbao/msgdetail.cpp ../hongbao/msgdetail.h \
 apiutils.o: ../hongbao/apiutils.cpp ../hongbao/apiutils.h \
 		../hongbao/public.h \
 		../hongbao/logstore.h \
+		../hongbao/message.h \
 		../hongbao/commutils.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o apiutils.o ../hongbao/apiutils.cpp
 
@@ -884,7 +905,8 @@ alarm.o: ../hongbao/alarm.cpp ../hongbao/alarm.h \
 		../hongbao/public.h \
 		../hongbao/logstore.h \
 		../hongbao/commutils.h \
-		../hongbao/apiutils.h
+		../hongbao/apiutils.h \
+		../hongbao/message.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o alarm.o ../hongbao/alarm.cpp
 
 msgsummary.o: ../hongbao/msgsummary.cpp ../hongbao/msgsummary.h \
@@ -907,8 +929,15 @@ countdown.o: ../hongbao/countdown.cpp ../hongbao/countdown.h \
 		../hongbao/logstore.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o countdown.o ../hongbao/countdown.cpp
 
-message.o: ../hongbao/message.cpp ../hongbao/message.h
+message.o: ../hongbao/message.cpp ../hongbao/message.h \
+		../hongbao/public.h \
+		../hongbao/logstore.h \
+		../hongbao/commutils.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o message.o ../hongbao/message.cpp
+
+proofform.o: ../hongbao/proofform.cpp ../hongbao/proofform.h \
+		ui_proofform.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o proofform.o ../hongbao/proofform.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -933,6 +962,9 @@ moc_msgsummary.o: moc_msgsummary.cpp
 
 moc_countdown.o: moc_countdown.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_countdown.o moc_countdown.cpp
+
+moc_proofform.o: moc_proofform.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_proofform.o moc_proofform.cpp
 
 ####### Install
 
