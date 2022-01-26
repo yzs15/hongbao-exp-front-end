@@ -11,6 +11,7 @@ bool try_use_sock(zsock_cache_t* zsock_cache_vlaue){
     return ok;
 }
 
+
 int getZsock() {
     for (int i = 0; i < zsock_cache.size(); i++) {
         if (zsock_cache[i].in_use) continue;
@@ -47,6 +48,6 @@ time_t zmqSend(char* endpoint, MsgObj *obj) {
     zframe_destroy(&frame);
     zsock_cache[zi].in_use = false;
 
-    qDebug() << sendTime << "util send a message, size:" << len;
+    // qDebug() << time_t2str(sendTime) << "util send a message, size:" << len;
     return sendTime;
 }

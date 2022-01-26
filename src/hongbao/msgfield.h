@@ -21,14 +21,14 @@ public:
     void clear();
 
 signals:
-    void msgSelected(MsgDetailObj* obj);
+    void msgSelected(MsgBox* box);
 
 private:
     QList<MsgBox*> msgBoxs;
     QLayout *msgFieldLayout;
 
 private slots:
-    void onMsgBoxClicked(MsgDetailObj* obj);
+    void onMsgBoxClicked(MsgBox* obj);
 };
 
 #endif // MSGFIELD_H

@@ -21,7 +21,8 @@ void Alarm::run() {
 
     ns_sleep_until(this->reqSendTime, SLEEP_THRESHOLD_NS);
 
-    time_t now = get_current_ns_timestamp();
+    time_t now = get_current_ptp_timestamp();
+    // time_t now = get_current_ns_timestamp();
     memcpy(raw+len-8, &now, 8);
 
     zframe_t *frame = zframe_new(raw, len);
@@ -38,7 +39,7 @@ void Alarm::run() {
     delete newObj;
     delete raw;
 
-    qDebug() << sendTime << "util send a message, size:" << len;
+    qDebug() << time_t2str(sendTime) << "util send a message, size:" << len;
     logStore.add(curEnv, this->msgObj->id, sendTime, "SenderSended");
 
     emit this->timeOut(this);

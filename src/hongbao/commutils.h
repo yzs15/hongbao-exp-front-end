@@ -14,8 +14,10 @@
 #include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <net/if.h>
+#include "all_clock.h"
 
 time_t get_current_ns_timestamp();
+time_t get_current_ptp_timestamp();
 
 int ns_sleep_until(long end_time, long sleep_threshold_ns);
 
@@ -28,5 +30,7 @@ uint64_t str2uint64_t(QString s);
 char* get_mac();
 
 QString id2string(uint64_t id);
+
+QByteArray getPart(const QByteArray& raw, int start, int len);
 
 #endif // COMMUTILS_H

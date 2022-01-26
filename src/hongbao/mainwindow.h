@@ -20,7 +20,9 @@
 #include "commutils.h"
 #include "countdown.h"
 #include "message.h"
+#include "hbopened.h"
 #include "commutils.h"
+#include "msghandler.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,15 +47,22 @@ private:
     QRadioButton* hbRadios[9];
 
     QWebSocket *socket;
+    QThreadPool pool;
 
     int mid = 1;
+    bool hidden = false;
 
-    QDateTime sendDate;
-    QDateTime sendTime;
-    int sendMs;
-    int sendUs;
+    int recvMsgNum = 0;
+    int recvHbAmount = 0;
+
+    //QDateTime sendDate;
+    //QDateTime sendTime;
+    //int sendMs;
+    //int sendUs;
 
     MsgObj* proofMsg = Q_NULLPTR;
+
+    HBOpened* hbOpened = Q_NULLPTR;
 
     Alarm* alarm;
     Countdown* countdown;
@@ -63,6 +72,9 @@ private:
     void handleProof(MsgObj *obj, time_t receivedTime);
     void handleNotice(MsgObj *recvObj, time_t receivedTime);
     void handleText(MsgObj* obj, time_t receivedTime);
+    void handleTest(MsgObj* obj, time_t receivedTime);
+
+    void add2field(MsgField* field, MsgObj* obj);
 
 private slots:
     // WebScoket
@@ -85,9 +97,11 @@ private slots:
 
     void onThingHideChanged();
 
-    void onMsgSelected(MsgDetailObj* obj);
+    void onMsgSelected(MsgBox* obj);
 
     void onMsgSended(Alarm* alarm);
+
+    void onMsgProcessed(MsgObj* obj);
 };
 
 #endif // MAINWINDOW_H

@@ -1,10 +1,18 @@
 #include "commutils.h"
 
 time_t get_current_ns_timestamp(){
-    struct timespec current_time;
-    clock_gettime(CLOCK_REALTIME, &current_time);
-    time_t timestamp = current_time.tv_sec * 1000000000 + current_time.tv_nsec;
-    return timestamp;
+    if (curEnv == INTERNET) {
+        struct timespec current_time;
+        clock_gettime(CLOCK_REALTIME, &current_time);
+        time_t timestamp = current_time.tv_sec * 1000000000 + current_time.tv_nsec;
+        return timestamp;
+    } else {
+        return utils_get_current_ptp_ns_timestamp(CLK_ID) - uint64_t(37) * 1000000000;
+    }
+}
+
+time_t get_current_ptp_timestamp(){
+    return utils_get_current_ptp_ns_timestamp(CLK_ID) - uint64_t(37) * 1000000000;
 }
 
 int ns_sleep_until(long end_time, long sleep_threshold_ns) {
@@ -49,7 +57,7 @@ QString time_t2str(time_t t) {
     struct tm *stm = localtime(&ymdhms);
 
     char tmp[35];
-    sprintf(tmp, "%04d-%02d-%02d %02d:%02d:%02d .%03d .%03d .%03d",
+    sprintf(tmp, "%04d-%02d-%02d %02d:%02d:%02d.%03d.%03d.%03d",
             1900 + stm->tm_year, 1 + stm->tm_mon, stm->tm_mday,
             stm->tm_hour, stm->tm_min, stm->tm_sec,
             ms, us, ns);
@@ -91,4 +99,12 @@ char* get_mac() {
 
 QString id2string(uint64_t id) {
     return QString("%1.%2.%3").arg(DMID(id)).arg(CID(id)).arg(SID(id));
+}
+
+QByteArray getPart(const QByteArray& raw, int start, int len) {
+   QByteArray s;
+   for (int i = start; i < start + len && i < raw.size(); i++) {
+       s.append(raw[i]);
+   }
+   return s;
 }

@@ -36,7 +36,7 @@ int MsgObj::toBytes(char **rawP) {
 QString MsgObj::toString() {
     return QString("MsgObj{%1, %2, %3, %4, %5}").arg(id2string(this->id))
             .arg(id2string(this->sender)).arg(id2string(this->receiver))
-            .arg(this->type).arg(this->sendTime);
+            .arg(this->type).arg(time_t2str(this->sendTime));
 }
 
 void updateSendTime(char *raw, int len) {

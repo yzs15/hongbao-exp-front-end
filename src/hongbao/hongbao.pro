@@ -37,7 +37,11 @@ SOURCES += \
     logstore.cpp \
     countdown.cpp \
     message.cpp \
-    proofform.cpp
+    proofform.cpp \
+    hbbox.cpp \
+    hbopened.cpp \
+    msghandler.cpp \
+    all_clock.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,14 +57,20 @@ HEADERS += \
     logstore.h \
     countdown.h \
     message.h \
-    proofform.h
+    proofform.h \
+    hbbox.h \
+    hbopened.h \
+    msghandler.h \
+    all_clock.h
 
 FORMS += \
         mainwindow.ui \
     msgbox.ui \
     msgdetail.ui \
     msgsummary.ui \
-    proofform.ui
+    proofform.ui \
+    hbbox.ui \
+    hbopened.ui
 
 unix:!macx: LIBS += -L$$PWD/../lib/ -lczmq
 
@@ -71,3 +81,6 @@ unix:!macx: LIBS += -L$$PWD/../lib/ -lczmq
 
 # INCLUDEPATH += $$PWD/../include
 # DEPENDPATH += $$PWD/../include
+
+RESOURCES += \
+    bg.qrc

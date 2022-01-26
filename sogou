@@ -1,0 +1,18 @@
+wget https://ime.sogouimecdn.com/202201191742/80b1e2ce5bd8f5d03b0aca4df0f4777f/dl/index/1639750479/sogoupinyin_3.4.0.9700_amd64.deb
+dpkg -i sogoupinyin_3.4.0.9700_amd64.deb
+apt-get install -f -y
+apt install -y libqt5qml5 fcitx-libs-dev libgsettings-qt1 libqt5dbus5 language-pack-zh-hans
+strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+
+cat <<EOF | tee -a /root/.zshrc
+export LANG=zh_CN.utf-8
+export PATH=$PATH:/usr/lib/x86_64-linux-gnu/libgtk-3-0
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+
+export LD_LIBRARY_PATH=/hongbao-fe/src/lib:/usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts:/usr/local/lib:$LD_LIBRARY_PATH
+export QT_PLUGIN_PATH=/hongbao-fe/src/lib/qt5/plugins:$QT_PLUGIN_PATH
+EOF
+
+fcitx &

@@ -16,6 +16,8 @@ public:
     time_t startTime;
     QString temp;
 
+    bool stop = false;
+
     void run();
 };
 

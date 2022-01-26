@@ -12,4 +12,5 @@ SERVER=$1
 
 PRO_DIR='~/projects/hongbao-fe'
 
+ssh $SERVER "mkdir -p $PRO_DIR"
 rsync -aP ./* $SERVER:$PRO_DIR/

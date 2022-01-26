@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MsgField_t {
-    QByteArrayData data[6];
-    char stringdata0[56];
+    QByteArrayData data[7];
+    char stringdata0[54];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,13 +34,14 @@ static const qt_meta_stringdata_MsgField_t qt_meta_stringdata_MsgField = {
 QT_MOC_LITERAL(0, 0, 8), // "MsgField"
 QT_MOC_LITERAL(1, 9, 11), // "msgSelected"
 QT_MOC_LITERAL(2, 21, 0), // ""
-QT_MOC_LITERAL(3, 22, 13), // "MsgDetailObj*"
-QT_MOC_LITERAL(4, 36, 3), // "obj"
-QT_MOC_LITERAL(5, 40, 15) // "onMsgBoxClicked"
+QT_MOC_LITERAL(3, 22, 7), // "MsgBox*"
+QT_MOC_LITERAL(4, 30, 3), // "box"
+QT_MOC_LITERAL(5, 34, 15), // "onMsgBoxClicked"
+QT_MOC_LITERAL(6, 50, 3) // "obj"
 
     },
-    "MsgField\0msgSelected\0\0MsgDetailObj*\0"
-    "obj\0onMsgBoxClicked"
+    "MsgField\0msgSelected\0\0MsgBox*\0box\0"
+    "onMsgBoxClicked\0obj"
 };
 #undef QT_MOC_LITERAL
 
@@ -67,7 +68,7 @@ static const uint qt_meta_data_MsgField[] = {
     QMetaType::Void, 0x80000000 | 3,    4,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, 0x80000000 | 3,    6,
 
        0        // eod
 };
@@ -78,15 +79,33 @@ void MsgField::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         MsgField *_t = static_cast<MsgField *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->msgSelected((*reinterpret_cast< MsgDetailObj*(*)>(_a[1]))); break;
-        case 1: _t->onMsgBoxClicked((*reinterpret_cast< MsgDetailObj*(*)>(_a[1]))); break;
+        case 0: _t->msgSelected((*reinterpret_cast< MsgBox*(*)>(_a[1]))); break;
+        case 1: _t->onMsgBoxClicked((*reinterpret_cast< MsgBox*(*)>(_a[1]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 0:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MsgBox* >(); break;
+            }
+            break;
+        case 1:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MsgBox* >(); break;
+            }
+            break;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (MsgField::*_t)(MsgDetailObj * );
+            typedef void (MsgField::*_t)(MsgBox * );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MsgField::msgSelected)) {
                 *result = 0;
                 return;
@@ -125,14 +144,14 @@ int MsgField::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 2)
-            *reinterpret_cast<int*>(_a[0]) = -1;
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 2;
     }
     return _id;
 }
 
 // SIGNAL 0
-void MsgField::msgSelected(MsgDetailObj * _t1)
+void MsgField::msgSelected(MsgBox * _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

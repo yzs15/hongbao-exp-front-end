@@ -29,12 +29,13 @@ void MsgField::setThingHidden(bool hidden) {
 
 void MsgField::clear() {
     for (int i = 0; i < this->msgBoxs.size(); i++) {
+        this->msgFieldLayout->removeWidget(this->msgBoxs.at(i));
         delete this->msgBoxs.at(i);
     }
 
     this->msgBoxs.clear();
 }
 
-void MsgField::onMsgBoxClicked(MsgDetailObj* obj) {
+void MsgField::onMsgBoxClicked(MsgBox* obj) {
     emit msgSelected(obj);
 }

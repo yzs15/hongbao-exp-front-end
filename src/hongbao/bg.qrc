@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../pic/nums/0.png</file>
+        <file>../pic/nums/1.png</file>
+        <file>../pic/nums/2.png</file>
+        <file>../pic/nums/3.png</file>
+        <file>../pic/nums/4.png</file>
+        <file>../pic/nums/5.png</file>
+        <file>../pic/nums/6.png</file>
+        <file>../pic/nums/7.png</file>
+        <file>../pic/nums/8.png</file>
+        <file>../pic/nums/9.png</file>
+        <file>../pic/closed.png</file>
+        <file>../pic/message-b.png</file>
+        <file>../pic/message-g.png</file>
+        <file>../pic/message-net.png</file>
+        <file>../pic/message-spb.png</file>
+        <file>../pic/opened-net.png</file>
+        <file>../pic/opened-spb.png</file>
+        <file>../pic/opened-w.png</file>
+        <file>../pic/proof.jpg</file>
+    </qresource>
+</RCC>

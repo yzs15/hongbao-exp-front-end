@@ -35,7 +35,7 @@ public:
     QLabel *nameLabel;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_7;
-    QLabel *label_2;
+    QLabel *msgNum;
     QScrollArea *msgFieldArea;
     QWidget *msgFieldWidget;
     QVBoxLayout *verticalLayout_5;
@@ -48,9 +48,6 @@ public:
     QPushButton *redBtn;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
-    QWidget *hbWidget;
-    QHBoxLayout *horizontalLayout_3;
-    QLabel *label_3;
     QVBoxLayout *verticalLayout_4;
     QLabel *countDownLabel;
     QHBoxLayout *horizontalLayout_5;
@@ -68,7 +65,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1024, 758);
+        MainWindow->resize(1024, 762);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -88,6 +85,10 @@ public:
         horizontalLayout_6->setContentsMargins(-1, -1, -1, 0);
         nameLabel = new QLabel(centralWidget);
         nameLabel->setObjectName(QStringLiteral("nameLabel"));
+        QFont font;
+        font.setBold(false);
+        font.setWeight(50);
+        nameLabel->setFont(font);
 
         horizontalLayout_6->addWidget(nameLabel);
 
@@ -102,21 +103,23 @@ public:
         verticalLayout_7->setSpacing(6);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         verticalLayout_7->setContentsMargins(-1, -1, 0, 0);
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setAlignment(Qt::AlignCenter);
+        msgNum = new QLabel(centralWidget);
+        msgNum->setObjectName(QStringLiteral("msgNum"));
+        msgNum->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_7->addWidget(label_2);
+        verticalLayout_7->addWidget(msgNum);
 
         msgFieldArea = new QScrollArea(centralWidget);
         msgFieldArea->setObjectName(QStringLiteral("msgFieldArea"));
         sizePolicy.setHeightForWidth(msgFieldArea->sizePolicy().hasHeightForWidth());
         msgFieldArea->setSizePolicy(sizePolicy);
+        msgFieldArea->setMinimumSize(QSize(400, 0));
         msgFieldArea->setWidgetResizable(true);
+        msgFieldArea->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         msgFieldWidget = new QWidget();
         msgFieldWidget->setObjectName(QStringLiteral("msgFieldWidget"));
         msgFieldWidget->setEnabled(true);
-        msgFieldWidget->setGeometry(QRect(0, 0, 395, 526));
+        msgFieldWidget->setGeometry(QRect(0, 0, 415, 541));
         msgFieldArea->setWidget(msgFieldWidget);
 
         verticalLayout_7->addWidget(msgFieldArea);
@@ -175,8 +178,8 @@ public:
 
         horizontalLayout->addLayout(verticalLayout_5);
 
-        horizontalLayout->setStretch(0, 40);
-        horizontalLayout->setStretch(1, 60);
+        horizontalLayout->setStretch(0, 42);
+        horizontalLayout->setStretch(1, 58);
 
         verticalLayout->addLayout(horizontalLayout);
 
@@ -187,27 +190,17 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        hbWidget = new QWidget(centralWidget);
-        hbWidget->setObjectName(QStringLiteral("hbWidget"));
-        hbWidget->setMinimumSize(QSize(50, 0));
-        horizontalLayout_3 = new QHBoxLayout(hbWidget);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        label_3 = new QLabel(hbWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        horizontalLayout_3->addWidget(label_3);
-
-
-        horizontalLayout_2->addWidget(hbWidget);
-
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, -1, -1, -1);
         countDownLabel = new QLabel(centralWidget);
         countDownLabel->setObjectName(QStringLiteral("countDownLabel"));
+        QFont font1;
+        font1.setPointSize(12);
+        font1.setBold(true);
+        font1.setWeight(75);
+        countDownLabel->setFont(font1);
         countDownLabel->setAlignment(Qt::AlignCenter);
 
         verticalLayout_4->addWidget(countDownLabel);
@@ -215,7 +208,7 @@ public:
 
         horizontalLayout_2->addLayout(verticalLayout_4);
 
-        horizontalLayout_2->setStretch(1, 40);
+        horizontalLayout_2->setStretch(0, 40);
 
         verticalLayout_2->addLayout(horizontalLayout_2);
 
@@ -233,6 +226,7 @@ public:
 
         teachLi = new QCheckBox(centralWidget);
         teachLi->setObjectName(QStringLiteral("teachLi"));
+        teachLi->setEnabled(true);
 
         verticalLayout_3->addWidget(teachLi);
 
@@ -291,15 +285,14 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\347\272\242\345\214\205\345\272\224\347\224\250", Q_NULLPTR));
         nameLabel->setText(QApplication::translate("MainWindow", "TextLabel", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindow", "\346\266\210\346\201\257\346\241\206", Q_NULLPTR));
+        msgNum->setText(QApplication::translate("MainWindow", "\346\266\210\346\201\257\346\241\206", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "\345\207\255\350\257\201\345\261\225\347\244\272\346\241\206", Q_NULLPTR));
         proofLabel->setText(QApplication::translate("MainWindow", "\346\232\202\346\227\240\345\207\255\350\257\201", Q_NULLPTR));
         redLabel->setText(QApplication::translate("MainWindow", "\350\275\254\345\217\221\347\273\231", Q_NULLPTR));
         redLi->setText(QApplication::translate("MainWindow", "\346\235\216\350\200\201\345\270\210", Q_NULLPTR));
         redSun->setText(QApplication::translate("MainWindow", "\345\255\231\350\200\201\345\270\210", Q_NULLPTR));
         redBtn->setText(QApplication::translate("MainWindow", "\347\241\256\350\256\244\350\275\254\345\217\221", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "\351\200\211\344\270\255\350\246\201\345\217\221\351\200\201\347\232\204\347\272\242\345\214\205", Q_NULLPTR));
-        countDownLabel->setText(QApplication::translate("MainWindow", "\350\257\267\347\202\271\345\207\273\345\274\200\345\247\213", Q_NULLPTR));
+        countDownLabel->setText(QApplication::translate("MainWindow", "\350\257\267\347\202\271\345\207\273 \346\265\213\350\257\225\345\271\266\347\224\237\346\210\220\345\207\255\350\257\201", Q_NULLPTR));
         teachWang->setText(QApplication::translate("MainWindow", "\347\216\213\350\200\201\345\270\210", Q_NULLPTR));
         teachLi->setText(QApplication::translate("MainWindow", "\346\235\216\350\200\201\345\270\210", Q_NULLPTR));
         teachSun->setText(QApplication::translate("MainWindow", "\345\255\231\350\200\201\345\270\210", Q_NULLPTR));
