@@ -14,4 +14,7 @@ export QT_PLUGIN_PATH=<path/to/project>/src/lib/qt5/plugins
 ```bash
 cp -r <path/to/project>/src/fonts /usr/loca/lib/
 ```
+4.前端界面如下图所示，王老师对应独占用户，彭老师对应高级用户
+![image](./IMG/%E5%BC%80%E5%8F%91%E5%9B%A2%E9%98%9F.jpg)
 
+![image](./IMG/%E7%8E%8B%E8%80%81%E5%B8%88.jpg)
